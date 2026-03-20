@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burnout Awareness - Hiểu để Phục hồi</title>
+    <style>
+        /* =========================================
+           THIẾT LẬP CHUNG & BIẾN MÀU SẮC
+        ========================================= */
+        :root {
+            --primary: #2d3436;
+            --accent: #0984e3; /* Màu xanh chủ đạo của web */
+            --bg-light: #f9f9fb;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --white: #ffffff;
+            --border: #dfe6e9;
+            --shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--white);
+            scroll-behavior: smooth;
+        }
+
+        /* =========================================
+           HEADER & NAVIGATION
+        ========================================= */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover { color: var(--accent); }
+
+        /* =========================================
+           HERO SECTION
+        ========================================= */
+        .hero {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            object-fit: cover;
+        }
+
+        /* =========================================
+           SECTIONS NỘI DUNG
+        ========================================= */
+        section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .aspect-card {
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .aspect-card span { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 4rem;
+            margin-top: 4rem;
+        }
+
+        .divider { height: 1px; background: var(--border); margin: 3rem 0; width: 100px; }
+
+        .symptom-group { margin-bottom: 1.5rem; }
+        .symptom-group h4 { color: var(--accent); margin-bottom: 0.5rem; }
+
+        .recovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recovery-card {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .recovery-card:hover { border-color: var(--accent); background: var(--bg-light); }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .article-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .article-card img { width: 100%; height: 180px; object-fit: cover; }
+
+        .article-body { padding: 1.5rem; }
+        .article-date { font-size: 0.8rem; color: var(--text-muted); }
+        .article-title { margin: 0.5rem 0; font-size: 1.1rem; }
+        .read-more { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .footer-quote {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+            border-radius: 30px;
+            margin: 4rem auto;
+            max-width: 900px;
+        }
+
+        .footer-quote blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           CẤU HÌNH CHATBOT DIALOGFLOW
+        ========================================= */
+        df-messenger {
+            position: fixed;
+            --df-messenger-font-color: #000;
+            --df-messenger-font-family: 'Inter', sans-serif;
+
+            /* Header - Chỉnh màu đồng bộ với web */
+            --df-messenger-button-titlebar-color: var(--accent);
+            --df-messenger-button-titlebar-font-color: white;
+
+            /* Chat background */
+            --df-messenger-chat-background-color: #f3f4f6;
+
+            /* Tin nhắn */
+            --df-messenger-user-message: var(--accent);
+            --df-messenger-bot-message: #e5e7eb;
+
+            /* Kích thước */
+            --df-messenger-chat-height: 550px;
+            --df-messenger-chat-width: 380px;
+
+            /* Input */
+            --df-messenger-input-box-color: white;
+            --df-messenger-send-icon: var(--accent);
+
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+        @media (max-width: 768px) {
+            .hero, .split-layout, .grid-3, .article-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            nav { flex-direction: column; gap: 1rem; }
+            .hero-img { order: -1; }
+            df-messenger {
+                --df-messenger-chat-width: 320px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">BURNOUT.lab</a>
+            <ul class="menu">
+                <li><a href="#what">Định nghĩa</a></li>
+                <li><a href="#symptoms">Triệu chứng</a></li>
+                <li><a href="#recovery">Phục hồi</a></li>
+                <li><a href="#blog">Kiến thức</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Burnout: Khi ngọn lửa nhiệt huyết dần tắt lịm.</h1>
+                <p>Kiệt sức nghề nghiệp không chỉ là cảm giác mệt mỏi sau một ngày dài. Đó là một trạng thái tâm lý cần được thấu hiểu và xoa dịu kịp thời.</p>
+                <div class="hero-btns">
+                    <a href="#what" class="btn btn-primary">Tìm hiểu Burnout</a>
+                    <a href="#symptoms" class="btn btn-outline">Dấu hiệu nhận biết</a>
+                    <a href="#recovery" class="btn btn-outline">Cách phục hồi</a>
+                </div>
+            </div>
+            <div class="hero-img">
+                <img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?auto=format&fit=crop&w=800&q=80" alt="Burnout Awareness">
+            </div>
+        </section>
+
+        <section id="what">
+            <h2 class="section-title">Burnout là gì?</h2>
+            <div class="grid-3">
+                <div class="aspect-card">
+                    <span>🔋</span>
+                    <h3>Kiệt sức cảm xúc</h3>
+                    <p>Cảm thấy bị bào mòn, không còn năng lượng tâm trí để đối mặt với công việc.</p>
+                </div>
+                <div class="aspect-card">
+                    <span>🌵</span>
+                    <h3>Hoài nghi (Cynicism)</h3>
+                    <p>Trở nên tiêu cực, xa cách hoặc mất kết nối với công việc và đồng nghiệp.</p>
+                </div>
+                <div class="aspect-card">
+                    <span>📉</span>
+                    <h3>Giảm hiệu suất</h3>
+                    <p>Cảm thấy bản thân kém cỏi, không còn khả năng hoàn thành nhiệm vụ như trước.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="status">
+            <div class="split-layout">
+                <div>
+                    <h2>Thực trạng Burnout hiện nay</h2>
+                    <div class="divider"></div>
+                    <p>Trong kỷ nguyên số, hơn 60% nhân sự trẻ thừa nhận họ từng trải qua các giai đoạn kiệt sức nghiêm trọng do áp lực công việc và sự mất cân bằng cuộc sống.</p>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Thực trạng">
+                </div>
+            </div>
+        </section>
+
+        <section id="symptoms">
+            <div class="split-layout">
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=800&auto=format&fit=crop" alt="Triệu chứng">
+                </div>
+                <div>
+                    <h2 style="text-align: left;" class="section-title">Triệu chứng & Checklist</h2>
+                    <div class="symptom-group">
+                        <h4>Thân thể</h4>
+                        <p>Đau đầu, rối loạn giấc ngủ, mệt mỏi kéo dài.</p>
+                    </div>
+                    <div class="symptom-group">
+                        <h4>Tâm trí</h4>
+                        <p>Mất tập trung, cảm thấy vô vọng, dễ cáu gắt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mechanism">
+            <h2 class="section-title">Cơ chế tâm lý</h2>
+            <div class="split-layout">
+                <div>
+                    <p>Burnout xảy ra khi <strong>Nguồn lực cá nhân</strong> không còn đáp ứng được <strong>Yêu cầu công việc</strong>. Trạng thái này khiến hệ thần kinh quá tải liên tục.</p>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80" alt="Cơ chế">
+                </div>
+            </div>
+        </section>
+
+        <section id="recovery">
+            <h2 class="section-title">Phương pháp phục hồi</h2>
+            <div class="recovery-grid">
+                <div class="recovery-card">
+                    <h3>🧠 Nhận thức</h3>
+                    <p>Thiết lập ranh giới công việc. Học cách nói "Không".</p>
+                </div>
+                <div class="recovery-card">
+                    <h3>⚡ Năng lượng</h3>
+                    <p>Ưu tiên giấc ngủ, dinh dưỡng và vận động nhẹ.</p>
+                </div>
+                <div class="recovery-card">
+                    <h3>🚶 Hành vi</h3>
+                    <p>Nghỉ ngơi chủ động. Dành thời gian cho sở thích.</p>
+                </div>
+                <div class="recovery-card">
+                    <h3>🤝 Hỗ trợ</h3>
+                    <p>Chia sẻ với người thân hoặc chuyên gia tâm lý.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog">
+            <h2 class="section-title">Kiến thức tâm lý gần đây</h2>
+            <div class="article-grid">
+                <article class="article-card">
+                    <img src="https://picsum.photos/seed/meditation/400/250" alt="News">
+                    <div class="article-body">
+                        <span class="article-date">20/03/2026</span>
+                        <h3 class="article-title">Mindfulness văn phòng</h3>
+                        <a href="#" class="read-more">Đọc thêm →</a>
+                    </div>
+                </article>
+                <article class="article-card">
+                    <img src="https://picsum.photos/seed/sleep/400/250" alt="News">
+                    <div class="article-body">
+                        <span class="article-date">15/03/2026</span>
+                        <h3 class="article-title">Tầm quan trọng giấc ngủ</h3>
+                        <a href="#" class="read-more">Đọc thêm →</a>
+                    </div>
+                </article>
+                <article class="article-card">
+                    <img src="https://picsum.photos/seed/nature/400/250" alt="News">
+                    <div class="article-body">
+                        <span class="article-date">10/03/2026</span>
+                        <h3 class="article-title">Kết nối với thiên nhiên</h3>
+                        <a href="#" class="read-more">Đọc thêm →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <div class="footer-quote">
+            <blockquote>"Nghỉ ngơi không phải là lười biếng. Đó là cách bạn nạp lại năng lượng để đi xa hơn."</blockquote>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding-bottom: 4rem; color: var(--text-muted);">
+        <p>&copy; 2026 BurnoutAwareness Project. All rights reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+        intent="WELCOME"
+        chat-title="Hỗ trợ Burnout"
+        agent-id="99b3e2db-4390-4820-a618-e9b650f1989d"
+        language-code="vi">
+    </df-messenger>
+
+</body>
+</html>
